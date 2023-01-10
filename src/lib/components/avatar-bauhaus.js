@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { hashCode, getUnit, getRandomColor, getBoolean } from '../utilities';
+import { v4 as uuid } from 'uuid';
 
 const ELEMENTS = 4;
 const SIZE = 80;
@@ -21,21 +22,21 @@ function generateColors(name, colors) {
 
 const AvatarBauhaus = (props) => {
   const properties = generateColors(props.name, props.colors);
-
+  const [maskId] = React.useState(uuid());
   return (
     <svg
       viewBox={'0 0 ' + SIZE + ' ' + SIZE}
-      fill="none"
-      role="img"
-      xmlns="http://www.w3.org/2000/svg"
+      fill='none'
+      role='img'
+      xmlns='http://www.w3.org/2000/svg'
       width={props.size}
       height={props.size}
     >
       {props.title && <title>{props.name}</title>}
-      <mask id="mask__bauhaus" maskUnits="userSpaceOnUse" x={0} y={0} width={SIZE} height={SIZE}>
-        <rect width={SIZE} height={SIZE} rx={props.square ? undefined : SIZE * 2} fill="#FFFFFF" />
+      <mask id={maskId} maskUnits='userSpaceOnUse' x={0} y={0} width={SIZE} height={SIZE}>
+        <rect width={SIZE} height={SIZE} rx={props.square ? undefined : SIZE * 2} fill='#FFFFFF' />
       </mask>
-      <g mask="url(#mask__bauhaus)">
+      <g mask={`url(#${maskId})`}>
         <rect width={SIZE} height={SIZE} fill={properties[0].color} />
         <rect
           x={(SIZE - 60) / 2}

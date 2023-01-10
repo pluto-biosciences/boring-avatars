@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { hashCode, getUnit, getBoolean, getRandomColor, getContrast } from '../utilities';
+import { v4 as uuid } from 'uuid';
 
 const SIZE = 36;
 
@@ -36,25 +37,25 @@ function generateData(name, colors) {
 
 const AvatarBeam = (props) => {
   const data = generateData(props.name, props.colors);
-
+  const [maskId] = React.useState(uuid());
   return (
     <svg
       viewBox={'0 0 ' + SIZE + ' ' + SIZE}
-      fill="none"
-      role="img"
-      xmlns="http://www.w3.org/2000/svg"
+      fill='none'
+      role='img'
+      xmlns='http://www.w3.org/2000/svg'
       width={props.size}
       height={props.size}
     >
       {props.title && <title>{props.name}</title>}
-      <mask id="mask__beam" maskUnits="userSpaceOnUse" x={0} y={0} width={SIZE} height={SIZE}>
-        <rect width={SIZE} height={SIZE} rx={props.square ? undefined : SIZE * 2} fill="#FFFFFF" />
+      <mask id={maskId} maskUnits='userSpaceOnUse' x={0} y={0} width={SIZE} height={SIZE}>
+        <rect width={SIZE} height={SIZE} rx={props.square ? undefined : SIZE * 2} fill='#FFFFFF' />
       </mask>
-      <g mask="url(#mask__beam)">
+      <g mask={`url(#${maskId})`}>
         <rect width={SIZE} height={SIZE} fill={data.backgroundColor} />
         <rect
-          x="0"
-          y="0"
+          x='0'
+          y='0'
           width={SIZE}
           height={SIZE}
           transform={
@@ -94,8 +95,8 @@ const AvatarBeam = (props) => {
             <path
               d={'M15 ' + (19 + data.mouthSpread) + 'c2 1 4 1 6 0'}
               stroke={data.faceColor}
-              fill="none"
-              strokeLinecap="round"
+              fill='none'
+              strokeLinecap='round'
             />
           ) : (
             <path
@@ -109,7 +110,7 @@ const AvatarBeam = (props) => {
             width={1.5}
             height={2}
             rx={1}
-            stroke="none"
+            stroke='none'
             fill={data.faceColor}
           />
           <rect
@@ -118,7 +119,7 @@ const AvatarBeam = (props) => {
             width={1.5}
             height={2}
             rx={1}
-            stroke="none"
+            stroke='none'
             fill={data.faceColor}
           />
         </g>
