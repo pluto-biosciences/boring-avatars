@@ -1,5 +1,4 @@
 declare module 'boring-avatars' {
-  import React from 'react';
 
   export interface AvatarProps {
     size?: number | string;
